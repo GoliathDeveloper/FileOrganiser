@@ -105,6 +105,8 @@ namespace FileOrganiser
                     myfileexts.Add("*.rtf");
                     myfileexts.Add("*.chm");
                     myfileexts.Add("*.pdf");
+                    myfileexts.Add("*.odt");
+                    myfileexts.Add("*.fodt");
                 }
                 if (chkBxImages.Checked == true)
                 {
@@ -136,6 +138,13 @@ namespace FileOrganiser
                     myfileexts.Add("*.dmg");
                     myfileexts.Add("*.pkg");
                     myfileexts.Add("*.dpkg");
+                }
+                if (chkBxSS.Checked == true)
+                {
+                    myfileexts.Add("*.xls");
+                    myfileexts.Add("*.xlsx");
+                    myfileexts.Add("*.ods");
+                    myfileexts.Add("*.fods");
                 }
                 #endregion
                 ArrayList myfileinfos = new ArrayList();
@@ -267,6 +276,21 @@ namespace FileOrganiser
                             Regex regexHtml = new Regex("(.*?)\\.(html|htm)$");
                             Match matchHtml = regexHtml.Match(f.ToString());
                             if (matchHtml.Success)
+                            {
+                                string NewtargetPath = (string.Format("{0}\\Html", targetPath));
+                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                {
+                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                }
+                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                System.IO.File.Copy(sourceFile, NewFileDest, true);
+                            }
+                            #endregion
+
+                            #region SpreadSheets cluster
+                            Regex regexSS = new Regex("(.*?)\\.(xls|xlsx|ods|fods)$");
+                            Match matchSS = regexSS.Match(f.ToString());
+                            if (matchSS.Success)
                             {
                                 string NewtargetPath = (string.Format("{0}\\Html", targetPath));
                                 if (!System.IO.Directory.Exists(NewtargetPath))
@@ -429,7 +453,22 @@ namespace FileOrganiser
                                 System.IO.File.Move(sourceFile, NewFileDest);
                             }
                             #endregion
-                            
+
+                            #region SpreadSheets cluster
+                            Regex regexSS = new Regex("(.*?)\\.(xls|xlsx|ods|fods)$");
+                            Match matchSS = regexSS.Match(f.ToString());
+                            if (matchSS.Success)
+                            {
+                                string NewtargetPath = (string.Format("{0}\\Html", targetPath));
+                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                {
+                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                }
+                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                System.IO.File.Move(sourceFile, NewFileDest);
+                            }
+                            #endregion
+
                             #region Move Subfolders
                             string NewSubFolder = (string.Format("{0}\\Folders", targetPath));
                             if (!System.IO.Directory.Exists(NewSubFolder))

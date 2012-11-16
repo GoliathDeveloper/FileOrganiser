@@ -35,8 +35,9 @@
             this.btnFolders = new System.Windows.Forms.Button();
             this.tBTarget = new System.Windows.Forms.TextBox();
             this.gBApps = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkBxMac = new System.Windows.Forms.CheckBox();
+            this.chkBxDB = new System.Windows.Forms.CheckBox();
+            this.chkBxSS = new System.Windows.Forms.CheckBox();
             this.chkBxHtml = new System.Windows.Forms.CheckBox();
             this.chkBxTorrent = new System.Windows.Forms.CheckBox();
             this.chkBxZR = new System.Windows.Forms.CheckBox();
@@ -56,7 +57,6 @@
             this.grpBxCopyorMove = new System.Windows.Forms.GroupBox();
             this.rBMove = new System.Windows.Forms.RadioButton();
             this.rBCopy = new System.Windows.Forms.RadioButton();
-            this.chkBxMac = new System.Windows.Forms.CheckBox();
             this.gBApps.SuspendLayout();
             this.grpBxCopyorMove.SuspendLayout();
             this.SuspendLayout();
@@ -115,8 +115,8 @@
             // gBApps
             // 
             this.gBApps.Controls.Add(this.chkBxMac);
-            this.gBApps.Controls.Add(this.checkBox2);
-            this.gBApps.Controls.Add(this.checkBox1);
+            this.gBApps.Controls.Add(this.chkBxDB);
+            this.gBApps.Controls.Add(this.chkBxSS);
             this.gBApps.Controls.Add(this.chkBxHtml);
             this.gBApps.Controls.Add(this.chkBxTorrent);
             this.gBApps.Controls.Add(this.chkBxZR);
@@ -131,29 +131,41 @@
             this.gBApps.TabStop = false;
             this.gBApps.Text = "Application Extensions";
             // 
-            // checkBox2
+            // chkBxMac
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(114, 67);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(78, 17);
-            this.checkBox2.TabIndex = 20;
-            this.checkBox2.Text = "DataBases";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkBxMac.AutoSize = true;
+            this.chkBxMac.Checked = true;
+            this.chkBxMac.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBxMac.Location = new System.Drawing.Point(114, 83);
+            this.chkBxMac.Name = "chkBxMac";
+            this.chkBxMac.Size = new System.Drawing.Size(47, 17);
+            this.chkBxMac.TabIndex = 17;
+            this.chkBxMac.Text = "Mac";
+            this.chkBxMac.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // chkBxDB
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(114, 51);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(93, 17);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "SpreadSheets";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkBxDB.AutoSize = true;
+            this.chkBxDB.Checked = true;
+            this.chkBxDB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBxDB.Location = new System.Drawing.Point(114, 67);
+            this.chkBxDB.Name = "chkBxDB";
+            this.chkBxDB.Size = new System.Drawing.Size(78, 17);
+            this.chkBxDB.TabIndex = 20;
+            this.chkBxDB.Text = "DataBases";
+            this.chkBxDB.UseVisualStyleBackColor = true;
+            // 
+            // chkBxSS
+            // 
+            this.chkBxSS.AutoSize = true;
+            this.chkBxSS.Checked = true;
+            this.chkBxSS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBxSS.Location = new System.Drawing.Point(114, 51);
+            this.chkBxSS.Name = "chkBxSS";
+            this.chkBxSS.Size = new System.Drawing.Size(93, 17);
+            this.chkBxSS.TabIndex = 19;
+            this.chkBxSS.Text = "SpreadSheets";
+            this.chkBxSS.UseVisualStyleBackColor = true;
             // 
             // chkBxHtml
             // 
@@ -346,18 +358,6 @@
             this.rBCopy.Text = "Copy";
             this.rBCopy.UseVisualStyleBackColor = true;
             // 
-            // chkBxMac
-            // 
-            this.chkBxMac.AutoSize = true;
-            this.chkBxMac.Checked = true;
-            this.chkBxMac.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBxMac.Location = new System.Drawing.Point(114, 83);
-            this.chkBxMac.Name = "chkBxMac";
-            this.chkBxMac.Size = new System.Drawing.Size(47, 17);
-            this.chkBxMac.TabIndex = 17;
-            this.chkBxMac.Text = "Mac";
-            this.chkBxMac.UseVisualStyleBackColor = true;
-            // 
             // Filer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,8 +417,8 @@
         private System.Windows.Forms.RadioButton rBCopy;
         private System.Windows.Forms.CheckBox chkBxTorrent;
         private System.Windows.Forms.CheckBox chkBxHtml;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox chkBxSS;
+        private System.Windows.Forms.CheckBox chkBxDB;
         private System.Windows.Forms.CheckBox chkBxMac;
     }
 }
