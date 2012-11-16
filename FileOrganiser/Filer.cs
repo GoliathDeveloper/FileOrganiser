@@ -292,7 +292,7 @@ namespace FileOrganiser
                             Match matchSS = regexSS.Match(f.ToString());
                             if (matchSS.Success)
                             {
-                                string NewtargetPath = (string.Format("{0}\\Html", targetPath));
+                                string NewtargetPath = (string.Format("{0}\\SpreadSheets", targetPath));
                                 if (!System.IO.Directory.Exists(NewtargetPath))
                                 {
                                     System.IO.Directory.CreateDirectory(NewtargetPath);
@@ -459,7 +459,7 @@ namespace FileOrganiser
                             Match matchSS = regexSS.Match(f.ToString());
                             if (matchSS.Success)
                             {
-                                string NewtargetPath = (string.Format("{0}\\Html", targetPath));
+                                string NewtargetPath = (string.Format("{0}\\SpreadSheets", targetPath));
                                 if (!System.IO.Directory.Exists(NewtargetPath))
                                 {
                                     System.IO.Directory.CreateDirectory(NewtargetPath);
