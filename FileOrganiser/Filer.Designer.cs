@@ -57,6 +57,8 @@
             this.grpBxCopyorMove = new System.Windows.Forms.GroupBox();
             this.rBMove = new System.Windows.Forms.RadioButton();
             this.rBCopy = new System.Windows.Forms.RadioButton();
+            this.chkBxShortCuts = new System.Windows.Forms.CheckBox();
+            this.chkBxCSharp = new System.Windows.Forms.CheckBox();
             this.gBApps.SuspendLayout();
             this.grpBxCopyorMove.SuspendLayout();
             this.SuspendLayout();
@@ -114,6 +116,8 @@
             // 
             // gBApps
             // 
+            this.gBApps.Controls.Add(this.chkBxCSharp);
+            this.gBApps.Controls.Add(this.chkBxShortCuts);
             this.gBApps.Controls.Add(this.chkBxMac);
             this.gBApps.Controls.Add(this.chkBxDB);
             this.gBApps.Controls.Add(this.chkBxSS);
@@ -358,6 +362,30 @@
             this.rBCopy.Text = "Copy";
             this.rBCopy.UseVisualStyleBackColor = true;
             // 
+            // chkBxShortCuts
+            // 
+            this.chkBxShortCuts.AutoSize = true;
+            this.chkBxShortCuts.Checked = true;
+            this.chkBxShortCuts.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBxShortCuts.Location = new System.Drawing.Point(7, 101);
+            this.chkBxShortCuts.Name = "chkBxShortCuts";
+            this.chkBxShortCuts.Size = new System.Drawing.Size(72, 17);
+            this.chkBxShortCuts.TabIndex = 21;
+            this.chkBxShortCuts.Text = "ShortCuts";
+            this.chkBxShortCuts.UseVisualStyleBackColor = true;
+            // 
+            // chkBxCSharp
+            // 
+            this.chkBxCSharp.AutoSize = true;
+            this.chkBxCSharp.Checked = true;
+            this.chkBxCSharp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBxCSharp.Location = new System.Drawing.Point(114, 101);
+            this.chkBxCSharp.Name = "chkBxCSharp";
+            this.chkBxCSharp.Size = new System.Drawing.Size(100, 17);
+            this.chkBxCSharp.TabIndex = 22;
+            this.chkBxCSharp.Text = "C# Project Files";
+            this.chkBxCSharp.UseVisualStyleBackColor = true;
+            // 
             // Filer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,6 +448,8 @@
         private System.Windows.Forms.CheckBox chkBxSS;
         private System.Windows.Forms.CheckBox chkBxDB;
         private System.Windows.Forms.CheckBox chkBxMac;
+        private System.Windows.Forms.CheckBox chkBxShortCuts;
+        private System.Windows.Forms.CheckBox chkBxCSharp;
     }
 }
 

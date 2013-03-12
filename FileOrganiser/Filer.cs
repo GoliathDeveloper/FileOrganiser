@@ -87,400 +87,491 @@ namespace FileOrganiser
             {
                 ArrayList myfileexts = new ArrayList();
                 #region if block for all check box's
-                if (chkBdll.Checked == true)
+                try
                 {
-                    myfileexts.Add("*.dll");
+                    if (chkBdll.Checked == true)
+                    {
+                        myfileexts.Add("*.dll");
+                    }
+                    if (chkBExe.Checked == true)
+                    {
+                        //need to change
+                        myfileexts.Add("*.exe");
+                        myfileexts.Add("*.msi");
+                    }
+                    if (chkBTxt.Checked == true)
+                    {
+                        myfileexts.Add("*.txt");
+                        myfileexts.Add("*.doc");
+                        myfileexts.Add("*.docx");
+                        myfileexts.Add("*.rtf");
+                        myfileexts.Add("*.chm");
+                        myfileexts.Add("*.pdf");
+                        myfileexts.Add("*.odt");
+                        myfileexts.Add("*.fodt");
+                        myfileexts.Add("*.File");
+                    }
+                    if (chkBxImages.Checked == true)
+                    {
+                        myfileexts.Add("*.jpg");
+                        myfileexts.Add("*.bmp");
+                        myfileexts.Add("*.gif");
+                        myfileexts.Add("*.psd");
+                        myfileexts.Add("*.png");
+                        myfileexts.Add("*.xcf");
+                    }
+                    if (chkBxZR.Checked == true)
+                    {
+                        myfileexts.Add("*.zip");
+                        myfileexts.Add("*.rar");
+                        myfileexts.Add("*.tgz");
+                        myfileexts.Add("*.tar.gz");
+                        myfileexts.Add("*.iso");
+                    }
+                    if (chkBxTorrent.Checked == true)
+                    {
+                        myfileexts.Add("*.torrent");
+                    }
+                    if (chkBxHtml.Checked == true)
+                    {
+                        myfileexts.Add("*.html");
+                        myfileexts.Add("*.htm");
+                    }
+                    if (chkBxMac.Checked == true)
+                    {
+                        myfileexts.Add("*.dmg");
+                        myfileexts.Add("*.pkg");
+                        myfileexts.Add("*.dpkg");
+                    }
+                    if (chkBxSS.Checked == true)
+                    {
+                        myfileexts.Add("*.xls");
+                        myfileexts.Add("*.xlsx");
+                        myfileexts.Add("*.ods");
+                        myfileexts.Add("*.fods");
+                    }
+                    if (chkBxShortCuts.Checked == true)
+                    {
+                        myfileexts.Add("*.lnk");
+                    }
+                    if (chkBxCSharp.Checked == true)
+                    {
+                        myfileexts.Add("*.cs");
+                    }
                 }
-                if (chkBExe.Checked == true)
+                catch
                 {
-                    //need to change
-                    myfileexts.Add("*.exe");
-                    myfileexts.Add("*.msi");
-                }
-                if (chkBTxt.Checked == true)
-                {
-                    myfileexts.Add("*.txt");
-                    myfileexts.Add("*.doc");
-                    myfileexts.Add("*.docx");
-                    myfileexts.Add("*.rtf");
-                    myfileexts.Add("*.chm");
-                    myfileexts.Add("*.pdf");
-                    myfileexts.Add("*.odt");
-                    myfileexts.Add("*.fodt");
-                }
-                if (chkBxImages.Checked == true)
-                {
-                    myfileexts.Add("*.jpg");
-                    myfileexts.Add("*.bmp");
-                    myfileexts.Add("*.gif");
-                    myfileexts.Add("*.psd");
-                    myfileexts.Add("*.png");
-                    myfileexts.Add("*.xcf");
-                }
-                if (chkBxZR.Checked == true)
-                {
-                    myfileexts.Add("*.zip");
-                    myfileexts.Add("*.rar");
-                    myfileexts.Add("*.tgz");
-                    myfileexts.Add("*.tar.gz");
-                }
-                if (chkBxTorrent.Checked == true)
-                {
-                    myfileexts.Add("*.torrent");
-                }
-                if (chkBxHtml.Checked == true)
-                {
-                    myfileexts.Add("*.html");
-                    myfileexts.Add("*.htm");
-                }
-                if (chkBxMac.Checked == true)
-                {
-                    myfileexts.Add("*.dmg");
-                    myfileexts.Add("*.pkg");
-                    myfileexts.Add("*.dpkg");
-                }
-                if (chkBxSS.Checked == true)
-                {
-                    myfileexts.Add("*.xls");
-                    myfileexts.Add("*.xlsx");
-                    myfileexts.Add("*.ods");
-                    myfileexts.Add("*.fods");
+                    MessageBox.Show("Error On Adding files to Array");
                 }
                 #endregion
                 ArrayList myfileinfos = new ArrayList();
                 DirectoryInfo di = new DirectoryInfo(tBSource.Text);
 
                 #region Copy
-                if (rBCopy.Checked == true)
+                try
                 {
-                    foreach (string ext in myfileexts)
+                    if (rBCopy.Checked == true)
                     {
-                        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(tBSource.Text);
-                        myfileinfos.AddRange(di.GetFiles(ext));
-                        foreach (System.IO.FileInfo f in dir.GetFiles(ext))
+                        foreach (string ext in myfileexts)
                         {
-                            string fileName = f.ToString();
-                            string sourcePath = tBSource.Text;
-                            string targetPath = tBTarget.Text;
-
-                            // Use Path class to manipulate file and directory paths. 
-                            string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
-                            string destFile = System.IO.Path.Combine(targetPath, fileName);
-
-                            #region document regex cluster
-                            Regex regex = new Regex("(.*?)\\.(txt|docx|doc|pdf|chm)$");
-                            Match match = regex.Match(f.ToString());
-                            if (match.Success)
+                            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(tBSource.Text);
+                            myfileinfos.AddRange(di.GetFiles(ext));
+                            foreach (System.IO.FileInfo f in dir.GetFiles(ext))
                             {
-                                string NewtargetPath = (string.Format("{0}\\Documents", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                string fileName = f.ToString();
+                                string sourcePath = tBSource.Text;
+                                string targetPath = tBTarget.Text;
+
+                                // Use Path class to manipulate file and directory paths. 
+                                string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+                                string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                                #region document regex cluster
+                                Regex regex = new Regex("(.*?)\\.(txt|docx|doc|pdf|chm)$");
+                                Match match = regex.Match(f.ToString());
+                                if (match.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Documents", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region dll cluster
-                            Regex regex2 = new Regex("(.*?)\\.(dll)$");
-                            Match match2 = regex2.Match(f.ToString());
-                            if (match2.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Dlls", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region dll cluster
+                                Regex regex2 = new Regex("(.*?)\\.(dll)$");
+                                Match match2 = regex2.Match(f.ToString());
+                                if (match2.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Dlls", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Exe cluster
-                            Regex regexExe = new Regex("(.*?)\\.(exe|msi)$");
-                            Match matchExe = regexExe.Match(f.ToString());
-                            if (matchExe.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Installers", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Exe cluster
+                                Regex regexExe = new Regex("(.*?)\\.(exe|msi)$");
+                                Match matchExe = regexExe.Match(f.ToString());
+                                if (matchExe.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Installers", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Mac cluster
-                            Regex regexMac = new Regex("(.*?)\\.(dmg|pkg|dpkg)$");
-                            Match matchMac = regexMac.Match(f.ToString());
-                            if (matchMac.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Mac", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Mac cluster
+                                Regex regexMac = new Regex("(.*?)\\.(dmg|pkg|dpkg)$");
+                                Match matchMac = regexMac.Match(f.ToString());
+                                if (matchMac.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Mac", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Image cluster
-                            Regex regexImg = new Regex("(.*?)\\.(jpg|bmp|png|gif|tiff|psd|xcf)$");
-                            Match matchImg = regexImg.Match(f.ToString());
-                            if (matchImg.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Images", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Image cluster
+                                Regex regexImg = new Regex("(.*?)\\.(jpg|bmp|png|gif|tiff|psd|xcf)$");
+                                Match matchImg = regexImg.Match(f.ToString());
+                                if (matchImg.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Images", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Zip & Rars cluster
-                            Regex regexZR = new Regex("(.*?)\\.(zip|rar|tar.gz|tgz)$");
-                            Match matchZR = regexZR.Match(f.ToString());
-                            if (matchZR.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Archives", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Zip/Rars & Iso cluster
+                                Regex regexZR = new Regex("(.*?)\\.(zip|rar|tar.gz|tgz|iso)$");
+                                Match matchZR = regexZR.Match(f.ToString());
+                                if (matchZR.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Archives", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Torrent cluster
-                            Regex regexTorrent = new Regex("(.*?)\\.(torrent)$");
-                            Match matchTorrent = regexTorrent.Match(f.ToString());
-                            if (matchTorrent.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Torrent", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Torrent cluster
+                                Regex regexTorrent = new Regex("(.*?)\\.(torrent)$");
+                                Match matchTorrent = regexTorrent.Match(f.ToString());
+                                if (matchTorrent.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Torrent", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Html cluster
-                            Regex regexHtml = new Regex("(.*?)\\.(html|htm)$");
-                            Match matchHtml = regexHtml.Match(f.ToString());
-                            if (matchHtml.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Html", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Html cluster
+                                Regex regexHtml = new Regex("(.*?)\\.(html|htm)$");
+                                Match matchHtml = regexHtml.Match(f.ToString());
+                                if (matchHtml.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Html", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region SpreadSheets cluster
-                            Regex regexSS = new Regex("(.*?)\\.(xls|xlsx|ods|fods)$");
-                            Match matchSS = regexSS.Match(f.ToString());
-                            if (matchSS.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\SpreadSheets", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region SpreadSheets cluster
+                                Regex regexSS = new Regex("(.*?)\\.(xls|xlsx|ods|fods)$");
+                                Match matchSS = regexSS.Match(f.ToString());
+                                if (matchSS.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\SpreadSheets", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Copy(sourceFile, NewFileDest, true);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Copy(sourceFile, NewFileDest, true);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Copy Subfolders
-                            string NewSubFolder = (string.Format("{0}\\Folders", targetPath));
-                            if (!System.IO.Directory.Exists(NewSubFolder))
-                            {
-                                System.IO.Directory.CreateDirectory(NewSubFolder);
-                                System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(tBSource.Text);
-                                System.IO.DirectoryInfo Target = new System.IO.DirectoryInfo(NewSubFolder);
-                                CopyAll(Source, Target);
+                                #region ShortCut cluster
+                                Regex regexShortCuts = new Regex("(.*?)\\.(lnk)$");
+                                Match matchShortCuts = regexShortCuts.Match(f.ToString());
+                                if (matchShortCuts.Success)
+                                {
+                                    string NewtargetPath = (string.Format("{0}\\ShortCuts", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
+                                }
+                                #endregion
+
+                                #region Csharp cluster
+                                Regex regexCsharp = new Regex("(.*?)\\.(cs|asp|aspx)$");
+                                Match matchCsharp = regexCsharp.Match(f.ToString());
+                                if (matchCsharp.Success)
+                                {
+                                    string NewtargetPath = (string.Format("{0}\\Csharp", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
+                                }
+                                #endregion
+
+                                #region Copy Subfolders
+                                string NewSubFolder = (string.Format("{0}\\Folders", targetPath));
+                                if (!System.IO.Directory.Exists(NewSubFolder))
+                                {
+                                    System.IO.Directory.CreateDirectory(NewSubFolder);
+                                    System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(tBSource.Text);
+                                    System.IO.DirectoryInfo Target = new System.IO.DirectoryInfo(NewSubFolder);
+                                    CopyAll(Source, Target);
+                                }
+                                #endregion
                             }
-                            #endregion
                         }
                     }
+                }
+                catch
+                {
+                    MessageBox.Show("Error on Copy Function");
                 }
                 #endregion
 
                 #region Move
-                if (rBMove.Checked == true)
+                try
                 {
-                    foreach (string ext in myfileexts)
+                    if (rBMove.Checked == true)
                     {
-                        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(tBSource.Text);
-                        myfileinfos.AddRange(di.GetFiles(ext));
-                        foreach (System.IO.FileInfo f in dir.GetFiles(ext))
+                        foreach (string ext in myfileexts)
                         {
-                            string fileName = f.ToString();
-                            string sourcePath = tBSource.Text;
-                            string targetPath = tBTarget.Text;
-
-                            // Use Path class to manipulate file and directory paths. 
-                            string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
-                            string destFile = System.IO.Path.Combine(targetPath, fileName);
-
-                            #region document regex cluster
-                            Regex regex = new Regex("(.*?)\\.(txt|docx|doc|pdf|chm)$");
-                            Match match = regex.Match(f.ToString());
-                            if (match.Success)
+                            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(tBSource.Text);
+                            myfileinfos.AddRange(di.GetFiles(ext));
+                            foreach (System.IO.FileInfo f in dir.GetFiles(ext))
                             {
-                                string NewtargetPath = (string.Format("{0}\\Documents", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                string fileName = f.ToString();
+                                string sourcePath = tBSource.Text;
+                                string targetPath = tBTarget.Text;
+
+                                // Use Path class to manipulate file and directory paths. 
+                                string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+                                string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                                #region document regex cluster
+                                Regex regex = new Regex("(.*?)\\.(txt|docx|doc|pdf|chm)$");
+                                Match match = regex.Match(f.ToString());
+                                if (match.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Documents", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region dll cluster
-                            Regex regex2 = new Regex("(.*?)\\.(dll)$");
-                            Match match2 = regex2.Match(f.ToString());
-                            if (match2.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Dlls", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region dll cluster
+                                Regex regex2 = new Regex("(.*?)\\.(dll)$");
+                                Match match2 = regex2.Match(f.ToString());
+                                if (match2.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Dlls", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Exe cluster
-                            Regex regexExe = new Regex("(.*?)\\.(exe|msi)$");
-                            Match matchExe = regexExe.Match(f.ToString());
-                            if (matchExe.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Installers", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Exe cluster
+                                Regex regexExe = new Regex("(.*?)\\.(exe|msi)$");
+                                Match matchExe = regexExe.Match(f.ToString());
+                                if (matchExe.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Installers", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Mac cluster
-                            Regex regexMac = new Regex("(.*?)\\.(dmg|pkg|dpkg)$");
-                            Match matchMac = regexMac.Match(f.ToString());
-                            if (matchMac.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Mac", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Mac cluster
+                                Regex regexMac = new Regex("(.*?)\\.(dmg|pkg|dpkg)$");
+                                Match matchMac = regexMac.Match(f.ToString());
+                                if (matchMac.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Mac", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Image cluster
-                            Regex regexImg = new Regex("(.*?)\\.(jpg|bmp|png|gif|tiff|psd|xcf)$");
-                            Match matchImg = regexImg.Match(f.ToString());
-                            if (matchImg.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Images", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Image cluster
+                                Regex regexImg = new Regex("(.*?)\\.(jpg|bmp|png|gif|tiff|psd|xcf)$");
+                                Match matchImg = regexImg.Match(f.ToString());
+                                if (matchImg.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Images", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Zip & Rars cluster
-                            Regex regexZR = new Regex("(.*?)\\.(zip|rar|tar.gz|tgz)$");
-                            Match matchZR = regexZR.Match(f.ToString());
-                            if (matchZR.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Archives", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Zip & Rars cluster
+                                Regex regexZR = new Regex("(.*?)\\.(zip|rar|tar.gz|tgz|iso)$");
+                                Match matchZR = regexZR.Match(f.ToString());
+                                if (matchZR.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Archives", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Torrent cluster
-                            Regex regexTorrent = new Regex("(.*?)\\.(torrent)$");
-                            Match matchTorrent = regexTorrent.Match(f.ToString());
-                            if (matchTorrent.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Torrent", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Torrent cluster
+                                Regex regexTorrent = new Regex("(.*?)\\.(torrent)$");
+                                Match matchTorrent = regexTorrent.Match(f.ToString());
+                                if (matchTorrent.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Torrent", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
-                            
-                            #region Html cluster
-                            Regex regexHtml = new Regex("(.*?)\\.(html|htm)$");
-                            Match matchHtml = regexHtml.Match(f.ToString());
-                            if (matchHtml.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\Html", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
-                                {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
-                                }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region SpreadSheets cluster
-                            Regex regexSS = new Regex("(.*?)\\.(xls|xlsx|ods|fods)$");
-                            Match matchSS = regexSS.Match(f.ToString());
-                            if (matchSS.Success)
-                            {
-                                string NewtargetPath = (string.Format("{0}\\SpreadSheets", targetPath));
-                                if (!System.IO.Directory.Exists(NewtargetPath))
+                                #region Html cluster
+                                Regex regexHtml = new Regex("(.*?)\\.(html|htm)$");
+                                Match matchHtml = regexHtml.Match(f.ToString());
+                                if (matchHtml.Success)
                                 {
-                                    System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    string NewtargetPath = (string.Format("{0}\\Html", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
                                 }
-                                string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
-                                System.IO.File.Move(sourceFile, NewFileDest);
-                            }
-                            #endregion
+                                #endregion
 
-                            #region Move Subfolders
-                            string NewSubFolder = (string.Format("{0}\\Folders", targetPath));
-                            if (!System.IO.Directory.Exists(NewSubFolder))
-                            {
-                                System.IO.Directory.CreateDirectory(NewSubFolder);
-                                System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(tBSource.Text);
-                                System.IO.DirectoryInfo Target = new System.IO.DirectoryInfo(NewSubFolder);
-                                MoveAll(Source, Target);
+                                #region SpreadSheets cluster
+                                Regex regexSS = new Regex("(.*?)\\.(xls|xlsx|ods|fods)$");
+                                Match matchSS = regexSS.Match(f.ToString());
+                                if (matchSS.Success)
+                                {
+                                    string NewtargetPath = (string.Format("{0}\\SpreadSheets", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
+                                }
+                                #endregion
+
+                                #region ShortCut cluster
+                                Regex regexShortCuts = new Regex("(.*?)\\.(lnk)$");
+                                Match matchShortCuts = regexShortCuts.Match(f.ToString());
+                                if (matchShortCuts.Success)
+                                {
+                                    string NewtargetPath = (string.Format("{0}\\ShortCuts", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
+                                }
+                                #endregion
+
+                                #region Csharp cluster
+                                Regex regexCsharp = new Regex("(.*?)\\.(cs|asp|aspx)$");
+                                Match matchCsharp = regexCsharp.Match(f.ToString());
+                                if (matchCsharp.Success)
+                                {
+                                    string NewtargetPath = (string.Format("{0}\\Csharp", targetPath));
+                                    if (!System.IO.Directory.Exists(NewtargetPath))
+                                    {
+                                        System.IO.Directory.CreateDirectory(NewtargetPath);
+                                    }
+                                    string NewFileDest = System.IO.Path.Combine(NewtargetPath, fileName);
+                                    System.IO.File.Move(sourceFile, NewFileDest);
+                                }
+                                #endregion
+
+                                #region Move Subfolders
+                                string NewSubFolder = (string.Format("{0}\\Folders", targetPath));
+                                if (!System.IO.Directory.Exists(NewSubFolder))
+                                {
+                                    System.IO.Directory.CreateDirectory(NewSubFolder);
+                                    System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(tBSource.Text);
+                                    System.IO.DirectoryInfo Target = new System.IO.DirectoryInfo(NewSubFolder);
+                                    MoveAll(Source, Target);
+                                }
+                                #endregion
                             }
-                            #endregion
                         }
                     }
+                }
+                catch
+                {
+                    MessageBox.Show("Error on Move Function");
                 }
                 #endregion
 
@@ -498,9 +589,16 @@ namespace FileOrganiser
 
         private void btnMvFolder_Click(object sender, EventArgs e)
         {
-            System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(tBSource.Text);
-            System.IO.DirectoryInfo Target = new System.IO.DirectoryInfo(tBTarget.Text);
-            CopyAll(Source, Target);
+            try
+            {
+                System.IO.DirectoryInfo Source = new System.IO.DirectoryInfo(tBSource.Text);
+                System.IO.DirectoryInfo Target = new System.IO.DirectoryInfo(tBTarget.Text);
+                CopyAll(Source, Target);
+            }
+            catch
+            {
+                MessageBox.Show("Error on Move Button");
+            }
         }
 
         public static void CopyAll(DirectoryInfo source, DirectoryInfo target)
